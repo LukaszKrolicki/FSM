@@ -1,0 +1,15 @@
+
+State Machine - |fsm|ST
+Name ST.L ST.K ST.J ST.I ST.H ST.G ST.F ST.E ST.D ST.C ST.B ST.A 
+ST.A 0 0 0 0 0 0 0 0 0 0 0 0 
+ST.B 0 0 0 0 0 0 0 0 0 0 1 1 
+ST.C 0 0 0 0 0 0 0 0 0 1 0 1 
+ST.D 0 0 0 0 0 0 0 0 1 0 0 1 
+ST.E 0 0 0 0 0 0 0 1 0 0 0 1 
+ST.F 0 0 0 0 0 0 1 0 0 0 0 1 
+ST.G 0 0 0 0 0 1 0 0 0 0 0 1 
+ST.H 0 0 0 0 1 0 0 0 0 0 0 1 
+ST.I 0 0 0 1 0 0 0 0 0 0 0 1 
+ST.J 0 0 1 0 0 0 0 0 0 0 0 1 
+ST.K 0 1 0 0 0 0 0 0 0 0 0 1 
+ST.L 1 0 0 0 0 0 0 0 0 0 0 1 

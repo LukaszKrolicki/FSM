@@ -1,0 +1,59 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+ 
+entity KONTROLER is
+port( CLOCK : in BIT;
+      TEMP  : in UNSIGNED(7 downto 0);
+      RESET, TK, BLOK : in STD_LOGIC;
+      WENT : out STD_LOGIC);
+end KONTROLER;
+ 
+architecture rtl of KONTROLER is
+type ST_TYPE IS (s0, s1, s2);
+signal ST: ST_TYPE;
+ 
+begin
+    process(CLOCK, RESET)
+       variable  CNTK : integer range 0 to 10;
+       variable  OLDTK : std_logic;
+    begin
+       if(RESET = '1') then
+         ST <= s0;
+       elsif(CLOCK'EVENT and CLOCK='1') then
+         case ST is
+            when s0 =>
+               WENT <='0';
+               if(TEMP>80) then
+                  ST <= s1;
+               else
+                  ST <= s0;
+               end if;
+            when s1 =>
+               WENT <='1';
+               if(TEMP<70) then
+                 ST <= s0;
+               elsif (BLOK='0') then
+                 ST <= s1;
+               else
+                 ST <= s2;
+                 CNTK := 0;
+                 OLDTK := '0';
+               end if;
+            when s2 =>
+               WENT <='0';
+               if(TEMP<70 OR CNTK=10) then
+                 ST <= s0;
+               else
+                  if(TK='0') then
+                     OLDTK := '0';
+                  elsif(OLDTK='0') then
+                     CNTK := CNTK+1;
+                     OLDTK := '1';
+                  end if;
+               ST <= s2;
+               end if;
+         end case;
+       end if;
+    end process;
+end rtl;
